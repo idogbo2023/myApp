@@ -13,7 +13,8 @@ sudo service apache2 status
 
 5. i had issue with my service not available so i had to use the curl utility to contact an outside party to tell you how it sees your server. This is done by asking a specific server what your IP address is:
 
-curl http://3.149.28.55/
+curl --ipv4 -v http://3.16.68.150
+
 and i discovered i was using https://my_ip so i changed it back to http://
 
 Step 6— Installing MySQL
