@@ -1,0 +1,93 @@
+Before installing the first LAMP component, ensure the package list on the system is up to date. In the terminal, type:
+
+sudo apt update
+
+2. To install the Apache package, run the following command:
+
+sudo apt install apache2 -y
+3. Check if Apache installed correctly by checking the Apache service status:
+
+sudo service apache2 status
+
+4. configured security group for launch-wizard2 group name on AWS Console, added both https and http using ipv4 custom ip
+
+5. i had issue with my service not available so i had to use the curl utility to contact an outside party to tell you how it sees your server. This is done by asking a specific server what your IP address is:
+
+curl http://3.149.28.55/
+and i discovered i was using https://my_ip so i changed it back to http://
+
+Step 6— Installing MySQL
+Now that you have a web server up and running, you need to install the database system to be able to store and manage data for your site. MySQL is a popular database management system used within PHP environments.
+
+Again, use apt to acquire and install this software:
+
+7. sudo apt install mysql-server
+When prompted, confirm installation by typing Y, and then ENTER.
+Start the interactive script by running:
+
+8. sudo mysql_secure_installation
+This will ask if you want to configure the VALIDATE PASSWORD PLUGIN.Answer Y for yes, or anything else to continue without enabling.
+Step 8 — Installing PHP
+You have Apache installed to serve your content and MySQL installed to store and manage your data. PHP is the component of our setup that will process code to display dynamic content to the final user. In addition to the php package, you’ll need php-mysql, a PHP module that allows PHP to communicate with MySQL-based databases. You’ll also need libapache2-mod-php to enable Apache to handle PHP files. Core PHP packages will automatically be installed as dependencies.
+
+To install these packages, run the following command:
+
+sudo apt install php libapache2-mod-php php-mysql
+
+9. Create the directory for your_domain as follows:
+
+sudo mkdir /var/www/your_domain for my case i use sudo mkdir /var/www/test
+Next, assign ownership of the directory with the $USER environment variable, which will reference your current system user:
+
+sudo chown -R $USER:$USER /var/www/your_domain
+Then, open a new configuration file in Apache’s sites-available directory using your preferred command-line editor. Here, we’ll use nano:
+
+sudo nano /etc/apache2/sites-available/your_domain.conf
+
+This will create a new blank file. Add in the following bare-bones configuration with your own domain name:
+
+/etc/apache2/sites-available/your_domain.conf
+<VirtualHost *:80>
+    ServerName your_domain
+    ServerAlias www.your_domain 
+    ServerAdmin webmaster@localhost
+    DocumentRoot /var/www/your_domain
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+Save and close the file when you’re done. If you’re using nano, do that by pressing CTRL+X, then Y and ENTER.
+
+10. Now, use a2ensite to enable the new virtual host:
+
+sudo a2ensite your_domain
+You might want to disable the default website that comes installed with Apache. This is required if you’re not using a custom domain name, because in this case Apache’s default configuration would override your virtual host. To disable Apache’s default website, type:
+
+11. sudo a2dissite 000-default
+
+To make sure your configuration file doesn’t contain syntax errors, run the following command:
+
+12. sudo apache2ctl configtest
+Finally, reload Apache so these changes take effect:
+
+13. sudo systemctl reload apache2
+Your new website is now active, but the web root /var/www/your_domain is still empty. Create an index.html file in that location to test that the virtual host works as expected:
+
+14. nano /var/www/your_domain/index.html
+Include the following content in this file:
+
+/var/www/your_domain/index.html
+<html>
+  <head>
+    <title>your_domain website</title>
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+
+    <p>This is the landing page of <strong>your_domain</strong>.</p>
+  </body>
+</html>
+
+Save and close the file, then go to your browser and access your server’s domain name or IP address:
+
+15. http://server_domain_or_IP
+Your web page should reflect the contents in the file you just edited
