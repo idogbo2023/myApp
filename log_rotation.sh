@@ -22,7 +22,7 @@ if [ ! -d "$backup_directory" ]; then
 fi
 
 # Uses the find command to locate all files with a log extension in the specified directory, it then uses the -exec option to pass each found file to the gzip -9
-command, compressing the log files to maximum
+# command, compressing the log files to maximum
 find "$log_directory" -type f -name "*.log" -exec gzip -9 {} \;
 
 # Move all compressed log.gz files from log to backup directory
