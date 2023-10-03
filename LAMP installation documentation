@@ -1,3 +1,4 @@
+How To Install Linux, Apache, MySQL, PHP (LAMP) Stack on Ubuntu 22.04:
 Before installing the first LAMP component, ensure the package list on the system is up to date. In the terminal, type:
 
 sudo apt update
