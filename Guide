@@ -1,4 +1,4 @@
 steps to installing ligh sail:
 https://aws.amazon.com/getting-started/hands-on/launch-lamp-web-app/?ref=gsrchandson
 
-for this project i installed LAMP on UBUNTU 22.04 dynamic IP address: http://3.16.68.150/ and Static IP address: http://18.188.10.112/ and also on Amazon Light sail: http://18.218.97.99/
+for this project i installed LAMP on UBUNTU 22.04 dynamic IP address: http://3.16.68.150/ and Static IP address: http://18.188.10.112/ disable the default website that comes installed with Apache and created a new website, i installed Amazon Lightsail: http://18.218.97.99/
